@@ -1,5 +1,8 @@
 chrome.action.onClicked.addListener((currentTab) => {
-  chrome.tabs.sendMessage(currentTab.id, "HI FROM BG", (response) =>
+  if (!currentTab?.id) {
+    return
+  }
+  chrome.tabs.sendMessage(currentTab?.id, "HI FROM BG", (response) =>
     console.log({ response })
   )
 })
