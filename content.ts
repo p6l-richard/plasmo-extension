@@ -4,7 +4,7 @@ export const config: PlasmoContentScript = {
   matches: ["https://*/*"]
 }
 
-let hasConnection: boolean
+let hasConnection = false
 // THIS IS NOW TOP-LEVEL
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log(
@@ -20,6 +20,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // NO LOGS ?
 
 function ping() {
+  if (hasConnection) return
   chrome.runtime.sendMessage("ping", (response) => {
     console.log({ response })
     if (chrome.runtime.lastError) {
