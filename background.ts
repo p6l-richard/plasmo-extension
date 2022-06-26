@@ -7,6 +7,14 @@ chrome.action.onClicked.addListener((currentTab) => {
   )
 })
 
+// PING-PONG
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log({ request })
+  if (request === "ping") {
+    sendResponse(true)
+  }
+  return true
+})
 // background console:
 // > {response: undefined}
 // Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
