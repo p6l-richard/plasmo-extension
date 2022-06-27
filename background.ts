@@ -1,20 +1,25 @@
-chrome.action.onClicked.addListener((currentTab) => {
+import { sendMessage } from "webext-bridge"
+import browser from "webextension-polyfill"
+
+browser.action.onClicked.addListener(async (currentTab) => {
   if (!currentTab?.id) {
     return
   }
-  chrome.tabs.sendMessage(currentTab?.id, "HI FROM BG", (response) =>
-    console.log({ response })
+  void sendMessage(
+    "actionClicked",
+    { greeting: "HI FROM BG" },
+    `content-script@${currentTab.id}`
   )
 })
 
-// PING-PONG
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log({ request })
-  if (request === "ping") {
-    sendResponse(true)
-  }
-  return true
-})
+// // PING-PONG
+// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+//   console.log({ request })
+//   if (request === "ping") {
+//     sendResponse(true)
+//   }
+//   return true
+// })
 // background console:
 // > {response: undefined}
 // Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
