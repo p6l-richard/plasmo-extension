@@ -10,9 +10,12 @@
 From a [Plasmo RFC](https://github.com/PlasmoHQ/plasmo/issues/76)
 
 ## About this repo
-This repo implements a naive example of background -> content communication with [`webext-bridge`](https://github.com/antfu/webext-bridge)
+This repo implements a naive example of background -> content communication.
+It uses:
+- [`Plasmo`](https://github.com/PlasmoHQ/plasmo)
+- [`webext-bridge`](https://github.com/antfu/webext-bridge)
 
-Give the above edge cases, it presents some issues for development, that are hidden by the dependency using webext-bridge.
+Give the quoted edge cases, it presents some issues for development, that are hidden by the dependency using webext-bridge.
 
 ## Demo
 🚨 GOTCHA: Breaks after _reloading_ extension
