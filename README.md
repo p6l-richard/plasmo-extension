@@ -21,6 +21,7 @@ Given the quoted edge cases, it presents some issues for development, that are h
 🚨 GOTCHA: Breaks after _reloading_ extension
 
 The user needs to reload tabs/pages for this to work
+ 
 **Note**: Because it usese webext-bridge, the service worker's logs don't even show the `chrome.runtime.lastError`, which makes it especially tricky to debug.
 If you don't use webext-bridge, you'll at least get notified about the error in the service worker logs:
 
