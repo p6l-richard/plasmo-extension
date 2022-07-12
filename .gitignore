@@ -40,3 +40,9 @@ keys.json
 
 # typescript
 .tsbuildinfo
+
+# PEM for extension id
+key.pem
+
+# env vars
+.env

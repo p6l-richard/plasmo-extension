@@ -9,11 +9,14 @@
     "build": "plasmo build"
   },
   "dependencies": {
+    "google-auth-library": "8.1.0",
+    "next": "12.2.1",
     "plasmo": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@plasmohq/rps": "latest",
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
     "@types/chrome": "0.0.193",
     "@types/node": "18.0.3",
@@ -25,6 +28,11 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    "permissions": [
+      "identity",
+      "identity.email"
+    ],
+    "key": "$CRX_PUBLIC_KEY",
     ]
   }
 }
