@@ -1,4 +1,5 @@
-import { sendMessage } from "webext-bridge"
+import type { Jsonify } from "type-fest"
+import { onMessage, sendMessage } from "webext-bridge"
 
 // -- Send event to content-script on action click --
 
@@ -6,7 +7,7 @@ import { sendMessage } from "webext-bridge"
 export interface HandleActionClick {
   key: "showModal"
   payload: { message: string }
-  response: { success: true }
+  response: { success: boolean }
 }
 // Send event
 chrome.action.onClicked.addListener(async (currentTab) => {
@@ -31,8 +32,30 @@ chrome.action.onClicked.addListener(async (currentTab) => {
       tabId: currentTab.id
     }
   )
+
   // ... after content responded, log response to background's console
   console.log("response received - modal showed? ", res)
 })
+
+// Types
+export interface HandleAuthentication {
+  key: "getProfileUserInfo"
+  payload: { variant: "silently" }
+  response: Promise<Jsonify<chrome.identity.UserInfo>>
+}
+
+onMessage("getProfileUserInfo", async () => {
+  return await getProfileUserInfoPromise()
+})
+
+// wrapping the callback-based chrome.identity.getProfileUserInfo API into a promise for convenience
+const getProfileUserInfoPromise = () => {
+  return new Promise<chrome.identity.UserInfo>((resolve, reject) => {
+    chrome.identity.getProfileUserInfo((res) => {
+      if (!res) reject()
+      resolve(res)
+    })
+  })
+}
 
 export {}
