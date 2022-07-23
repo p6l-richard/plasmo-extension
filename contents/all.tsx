@@ -12,17 +12,21 @@ onMessage("showModal", async ({ data }) => {
   if (!data.message) return { success: false }
 
   const userInfo = await sendMessage(
-    //    ^?
     "getProfileUserInfo",
     { variant: "silently" },
     "background"
   )
-  // alert user in tab about action click
-  alert(`Hi, ${userInfo.email}!`)
-
-  // return response to background script
+  // note (richard): This will work if plasmo accepts a PR to define the shadow host's id
+  const plasmoShadowHost = document.getElementById("plasmo-shadow-host")
+  if (!plasmoShadowHost) {
+    alert(`shadow root not found!`)
+    return { success:false }
+  }
+  // inverse visibility
+  plasmoShadowHost.style.display = plasmoShadowHost.style.display === "none" ? "flex" : "none";
   return { success: true }
 })
+
 export default function AllContent() {
   const [userInfo, setUserInfo] = useState<chrome.identity.UserInfo>()
   useEffect(() => {
@@ -40,6 +44,8 @@ export default function AllContent() {
 
   return (
     <div
+      id="extension-dialog"
+      aria-modal="true"
       style={{
         display: "flex",
         flexDirection: "column",
