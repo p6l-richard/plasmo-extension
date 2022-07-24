@@ -34,7 +34,8 @@
     ],
     "permissions": [
       "identity",
-      "identity.email"
+      "identity.email",
+      "gcm"
     ],
     "key": "$CRX_PUBLIC_KEY",
     "oauth2": {

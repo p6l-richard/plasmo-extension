@@ -58,4 +58,33 @@ const getProfileUserInfoPromise = () => {
   })
 }
 
+/** ---------------------------------------------
+ * Firebase Cloud Messaging implementation
+ * note (richard): following the plasmo walkthrough: https://blog.plasmo.com/p/firebase-cloud-messaging-chrome-extension
+ * you can send a curl request to send a message that logs like so:
+ * https://stackoverflow.com/a/54342137/5608461
+ * ----------------------------------------------
+ */
+// register extension to firebase
+// TODO: convert callback-based API into promise-based API
+// note (richard): sender id visible in firebase console: https://console.firebase.google.com/u/0/project/plasmo-exploration/settings/cloudmessaging
+chrome.gcm.register([process.env.FIREBASE_SENDER_ID], (registrationId) => {
+  if (chrome.runtime.lastError) {
+    console.log("failed")
+    return
+  }
+  // note (richard): saves registrationId manually in .env.development
+  console.log(
+    "✅ Successfully registered WebExtension to Firebase Cloud Messaging"
+  )
+})
+
+// listen to message from Firebase Cloud
+chrome.gcm.onMessage.addListener((message) => {
+  console.log(
+    "You received a message from Firebase Cloud Messaging 👇",
+    message
+  )
+})
+
 export {}
