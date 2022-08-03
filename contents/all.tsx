@@ -25,20 +25,23 @@ onMessage("showModal", async ({ data }) => {
   // early return
   if (!data.message) return { success: false }
 
-  const plasmoShadowContainer = document.getElementById(SHADOW_CONTAINER_ID)
-  if (!plasmoShadowContainer) {
-    alert(`shadow root not found!`)
-    return { success: false }
-  }
-  const plasmoShadowStyleElement = document.getElementById(SHADOW_STYLE_ID)
-  if (!plasmoShadowStyleElement) {
-    alert(`shadow style not found!`)
-    return { success: false }
-  }
-  // inverse visibility
-  // note (richard): `flex` is somewhat random here
-  plasmoShadowContainer.style.display =
-    plasmoShadowContainer.style.display === "none" ? "flex" : "none"
+  // 🚫 ------
+  //    accessing shadow dom elements from outside not possible directly
+  // const plasmoShadowContainer = document.getElementById(SHADOW_CONTAINER_ID)
+  // if (!plasmoShadowContainer) {
+  //   alert(`shadow container not found!`)
+  //   return { success: false }
+  // }
+  // const plasmoShadowStyleElement = document.getElementById(SHADOW_STYLE_ID)
+  // if (!plasmoShadowStyleElement) {
+  //   alert(`shadow style not found!`)
+  //   return { success: false }
+  // }
+  // // inverse visibility
+  // // note (richard): `flex` is somewhat random here
+  // plasmoShadowContainer.style.display =
+  //   plasmoShadowContainer.style.display === "none" ? "flex" : "none"
+  // 🚫 -----
 
   // THIS WORKS AT RUNTIME but I can't define the initial state of the shadowHost.style (I want: display: none)
   const plasmoShadowHost = document.getElementById(SHADOW_HOST_ID)
@@ -46,10 +49,33 @@ onMessage("showModal", async ({ data }) => {
     alert(`shadow root not found!`)
     return { success: false }
   }
-  // // inverse visibility
-  // // note (richard): `flex` is somewhat random here
-  // plasmoShadowHost.style.display =
-  //   plasmoShadowHost.style.display === "none" ? "flex" : "none"
+  const shadowRoot = plasmoShadowHost.shadowRoot
+  if (!shadowRoot) {
+    alert(`Shadow host doesn't have a shadowRoot attached!`)
+    return { success: false }
+  }
+
+  // note (richard): cumbersomly remove the initial style tag display reference to enable toggling via `style` prop
+  const regex = /(#plasmo-shadow-container\s*{(?:(.|\n)*))(display:\s*none;)/
+  const styleContent = shadowRoot.getElementById(SHADOW_STYLE_ID)
+  const isHiddenInitially = Boolean(styleContent?.textContent?.match(regex)) // need to store ref before we remove
+  console.log("is hidden initially? " + isHiddenInitially, styleContent)
+  // clean up the initial display: none from style element so that we can toggle
+  if (styleContent) {
+    styleContent.textContent?.replace(regex, "$1")
+  }
+  // Now, we can inverse visibility
+  // note (richard): `flex` is somewhat random here
+  const shadowContainer = shadowRoot.getElementById(SHADOW_CONTAINER_ID)
+  if (!shadowContainer) {
+    alert(`style element within shadowRoot not found!`)
+    return { success: false }
+  }
+  shadowContainer.style.display =
+    shadowContainer.style.display === "none" || isHiddenInitially
+      ? "flex"
+      : "none"
+
   return { success: true }
 })
 

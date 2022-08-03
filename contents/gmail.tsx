@@ -99,12 +99,18 @@ const waitForElements = (selector) => {
  * - If querySelectorAll is absolutely unavoidable inside MutationObserver callback, first perform the querySelector check, on the average such combo will be much faster.
  * - avoid for loops (or array methods) inside the MutationObserver callback
  */
-const waitForElement = (props: {id: string, parent?: HTMLElement} | {className: string, parent?: HTMLElement}) => {
-   const id = props?.id;
-   const className = props?.className;
-   return new Promise<HTMLElement>((resolve) => {
+const waitForElement = (
+  props:
+    | { id: string; parent?: HTMLElement }
+    | { className: string; parent?: HTMLElement }
+) => {
+  const id = props?.id
+  const className = props?.className
+  return new Promise<HTMLElement>((resolve) => {
     // if element already present, return
-    const earlyElement = id ? document.getElementById(id) : document.getByClassName(className);
+    const earlyElement = id
+      ? document.getElementById(id)
+      : document.getByClassName(className)
     if (earlyElement) {
       return resolve(earlyElement)
     }
@@ -112,7 +118,9 @@ const waitForElement = (props: {id: string, parent?: HTMLElement} | {className: 
     // else observe dom mutations for our element
     const observer = new MutationObserver((mutations) => {
       // was the element added to the entire document?
-      const addedElement = id ? document.getElementById(id) : document.getByClassName(className);
+      const addedElement = id
+        ? document.getElementById(id)
+        : document.getByClassName(className)
       if (addedElement) {
         resolve(addedElement)
         // always disconnect observer on success
@@ -128,6 +136,5 @@ const waitForElement = (props: {id: string, parent?: HTMLElement} | {className: 
     })
   })
 }
-
 
 export default GmailItem
