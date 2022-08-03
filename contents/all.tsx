@@ -24,10 +24,11 @@ export const getRootContainer = async () => {
   const shadowRoot = shadowHost.attachShadow({ mode: "open" })
   // inject the shadowHost w/ shadowRoot into the body
   document.body.insertAdjacentElement("beforebegin", shadowHost)
-  // add our custom style element for the shadow dom
+
+  // 2. add our custom style element for the shadow dom
   shadowRoot.appendChild(getStyleShadowDOM())
 
-  // 2. create and insert container for our application mount
+  // 3. create and insert container for our application mount
   const container = document.createElement("div")
   container.id = PLASMO_CONTAINER_ID
   container.style.cssText = `
