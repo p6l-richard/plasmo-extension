@@ -7,76 +7,58 @@ export const config: PlasmoContentScript = {
   matches: ["https://*/*"]
 }
 
-const DIV_ID = "plasmo-shadow-div"
+// element IDs
+const SHADOW_HOST_ID = "plasmo-shadow-div"
 const SHADOW_STYLE_ID = "shadow-styling"
+const PLASMO_CONTAINER_ID = "plasmo-shadow-container"
 
 // We use the getRootContainer to inject the shadow host in our own way
 export const getRootContainer = async () => {
+  // 1. create a host for with a shadow root
+  const shadowHost = document.createElement("div")
+  shadowHost.id = SHADOW_HOST_ID
+  // note (richard):  hiding initially to enable toggle onMessage
+  shadowHost.style.cssText = `
+  display: none;
+  `
+  const shadowRoot = shadowHost.attachShadow({ mode: "open" })
+  // inject the shadowHost w/ shadowRoot into the body
+  document.body.insertAdjacentElement("beforebegin", shadowHost)
+  // add our custom style element for the shadow dom
+  shadowRoot.appendChild(getStyleShadowDOM())
+
+  // 2. create and insert container for our application mount
   const container = document.createElement("div")
-
-  container.id = "plasmo-shadow-container"
-
+  container.id = PLASMO_CONTAINER_ID
   container.style.cssText = `
-    display: none;
     z-index: 1;
     position: absolute;
   `
-
-  // This is the div that the shadow host will be inserted into
-  const shadowHost = document.createElement("div")
-  shadowHost.id = DIV_ID
-
-  const shadowRoot = shadowHost.attachShadow({ mode: "open" })
-  document.body.insertAdjacentElement("beforebegin", shadowHost)
-
-  shadowRoot.appendChild(await getStyle())
-
   shadowRoot.appendChild(container)
+
   return container
 }
 
-export const getStyle = () => {
+const getStyleShadowDOM = () => {
   const style = document.createElement("style")
   style.id = SHADOW_STYLE_ID
   style.textContent = cssText
   return style
 }
-// Handle action click in content-script
+
+// Toggle app visibility on action click in content-script
 onMessage("showModal", async ({ data }) => {
   // early return
   if (!data.message) return { success: false }
 
-  // 🚫 ------
-  //    accessing shadow dom elements from outside not possible directly
-  // const plasmoShadowContainer = document.getElementById(SHADOW_CONTAINER_ID)
-  // if (!plasmoShadowContainer) {
-  //   alert(`shadow container not found!`)
-  //   return { success: false }
-  // }
-  // const plasmoShadowStyleElement = document.getElementById(SHADOW_STYLE_ID)
-  // if (!plasmoShadowStyleElement) {
-  //   alert(`shadow style not found!`)
-  //   return { success: false }
-  // }
-  // // inverse visibility
-  // // note (richard): `flex` is somewhat random here
-  // plasmoShadowContainer.style.display =
-  //   plasmoShadowContainer.style.display === "none" ? "flex" : "none"
-  // 🚫 -----
-
-  // THIS WORKS AT RUNTIME but I can't define the initial state of the shadowHost.style (I want: display: none)
-
-  // clean up the initial display: none from style element so that we can toggle
   // Now, we can inverse visibility
-  // note (richard): `flex` is somewhat random here
-  const shadowContainer = document
-    ?.getElementById(DIV_ID)
-    ?.shadowRoot?.getElementById("plasmo-shadow-container")
+  const shadowContainer = document?.getElementById(SHADOW_HOST_ID)
   if (!shadowContainer) {
     alert(`style element within shadowRoot not found!`)
     return { success: false }
   }
   shadowContainer.style.display =
+    // note (richard): `flex` is somewhat random here
     shadowContainer.style.display === "none" ? "flex" : "none"
 
   return { success: true }
