@@ -11,7 +11,7 @@
   "dependencies": {
     "google-auth-library": "8.1.0",
     "next": "12.2.1",
-    "plasmo": "latest",
+    "plasmo": "0.50",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "type-fest": "^2.16.0",
