@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@plasmohq/rps': latest
@@ -20,8 +20,8 @@ specifiers:
 
 dependencies:
   google-auth-library: 8.1.0
-  next: 12.2.1_react-dom@18.2.0+react@18.2.0
-  plasmo: 0.50.1_react-dom@18.2.0+react@18.2.0
+  next: 12.2.1_biqbaboplfbrettd7655fr4n2y
+  plasmo: 0.50.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   type-fest: 2.16.0
@@ -194,12 +194,16 @@ packages:
     resolution: {integrity: sha512-oG0ej7efjEXxb4UgE+klVx+3j4MVo+A2vCzm7OUN4CLo6WhQ+vSOD2yJ8m7B+DghObxtLxt3EfgMWpq+AsWehQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+    dependencies:
+      '@babel/types': 7.18.4
     dev: true
 
   /@babel/parser/7.18.5:
     resolution: {integrity: sha512-YZWVaglMiplo7v8f1oMQ5ZPQr0vn7HPeZXxXWsxXJRjGVrzUFn9OxFQl1sb5wzfootjA/yChhW84BV+383FSOw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+    dependencies:
+      '@babel/types': 7.18.4
 
   /@babel/runtime/7.18.3:
     resolution: {integrity: sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==}
@@ -265,7 +269,6 @@ packages:
     dependencies:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
-    dev: true
 
   /@expo/spawn-async/1.7.0:
     resolution: {integrity: sha512-sqPAjOEFTrjaTybrh9SnPFLInDXcoMC06psEFmH68jLTmoipSQCq8GCEfIoHhxRDALWB+DsiwXJSbXlE/iVIIQ==}
@@ -1238,6 +1241,7 @@ packages:
       less: 4.1.3
     transitivePeerDependencies:
       - '@parcel/core'
+      - supports-color
     dev: false
 
   /@parcel/transformer-postcss/2.6.2_@parcel+core@2.6.2:
@@ -1391,7 +1395,7 @@ packages:
       nullthrows: 1.1.1
     dev: false
 
-  /@plasmohq/consolidate/0.17.0_react-dom@18.2.0+react@18.2.0:
+  /@plasmohq/consolidate/0.17.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-Na8imBnvzYPtzkK+9Uv9hPZ/oJti/0jgiQWD222SHxHw2QCVuR4KzslxXCy/rS8gGluSiTs1BGVvc3d2O6aJCA==}
     engines: {node: '>= 0.10.0'}
     peerDependencies:
@@ -1556,7 +1560,7 @@ packages:
       nullthrows: 1.1.1
     dev: false
 
-  /@plasmohq/parcel-config/0.4.1_react-dom@18.2.0+react@18.2.0:
+  /@plasmohq/parcel-config/0.4.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-Z+DoIJMfTFsVjknZcVLPWxCOsinhlQkl2IhRR5f0spNhtYwFDqG1dP+yLepCMaIvYO57f52XsAdr98zVBoXbPw==}
     dependencies:
       '@parcel/config-webextension': 2.6.2_@parcel+core@2.6.2
@@ -1574,7 +1578,7 @@ packages:
       '@plasmohq/parcel-resolver': 0.1.3
       '@plasmohq/parcel-runtime': 0.2.3
       '@plasmohq/parcel-transformer-svelte3': 0.0.0
-      '@plasmohq/parcel-transformer-vue3': 0.0.0_react-dom@18.2.0+react@18.2.0
+      '@plasmohq/parcel-transformer-vue3': 0.0.0_biqbaboplfbrettd7655fr4n2y
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -1615,6 +1619,7 @@ packages:
       - slm
       - squirrelly
       - srcset
+      - supports-color
       - teacup
       - templayed
       - terser
@@ -1660,7 +1665,7 @@ packages:
       '@parcel/utils': 2.6.2
     dev: false
 
-  /@plasmohq/parcel-transformer-vue3/0.0.0_react-dom@18.2.0+react@18.2.0:
+  /@plasmohq/parcel-transformer-vue3/0.0.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-zKWxCz7Qtyka0dGffca0+sjh+4tBsQmZPIUM0qfrUmXsfyQ3/tZSk3YEZuyV9k0qA80CjikU0TNgv0UsAX7+Vg==}
     engines: {parcel: '>= 2.6.0'}
     dependencies:
@@ -1670,7 +1675,7 @@ packages:
       '@parcel/source-map': 2.1.0
       '@parcel/types': 2.6.2_@parcel+core@2.6.2
       '@parcel/utils': 2.6.2
-      '@plasmohq/consolidate': 0.17.0_react-dom@18.2.0+react@18.2.0
+      '@plasmohq/consolidate': 0.17.0_biqbaboplfbrettd7655fr4n2y
       '@vue/compiler-sfc': 3.2.37
       nullthrows: 1.1.1
       semver: 7.3.7
@@ -2428,6 +2433,11 @@ packages:
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.1.2
     dev: false
@@ -3281,6 +3291,8 @@ packages:
       mime: 1.6.0
       needle: 3.1.0
       source-map: 0.6.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /lines-and-columns/1.2.4:
@@ -3642,6 +3654,8 @@ packages:
       debug: 3.2.7
       iconv-lite: 0.6.3
       sax: 1.2.4
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -3653,7 +3667,7 @@ packages:
     resolution: {integrity: sha512-+z6QY1SxkDk6CQJAeaIZKmcNubBCRP7J8DMQUBglz/sSkNsZoJ1kULjqk9skNPPplzs4i9PFhYrvNDdtQleF/A==}
     dev: false
 
-  /next/12.2.1_react-dom@18.2.0+react@18.2.0:
+  /next/12.2.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-090KB5CZRlLG/GWxb8tA1ZFwqL8OfpUtH4mXA7POuisa6NL5ihiAZhfk5nRBdPHvkXuSt0n7zQaVym6SrT3Wiw==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -3906,7 +3920,7 @@ packages:
     dev: false
     optional: true
 
-  /plasmo/0.50.1_react-dom@18.2.0+react@18.2.0:
+  /plasmo/0.50.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-wp9ud1cGr9r/PPDHl93HRWtUrmgxKFGpNAIo45ooWKCcE+DHKES+jKo3MxIdK41ZGuVbUnyteboSiW98ZO5mng==}
     hasBin: true
     dependencies:
@@ -3916,7 +3930,7 @@ packages:
       '@parcel/package-manager': 2.6.2_@parcel+core@2.6.2
       '@parcel/watcher': 2.0.5
       '@plasmohq/init': 0.1.1
-      '@plasmohq/parcel-config': 0.4.1_react-dom@18.2.0+react@18.2.0
+      '@plasmohq/parcel-config': 0.4.1_biqbaboplfbrettd7655fr4n2y
       archiver: 5.3.1
       buffer: 6.0.3
       chalk: 5.0.1
@@ -3975,6 +3989,7 @@ packages:
       - slm
       - squirrelly
       - srcset
+      - supports-color
       - teacup
       - templayed
       - terser
@@ -4480,7 +4495,6 @@ packages:
   /to-fast-properties/2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
-    dev: true
 
   /to-regex-range/5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
